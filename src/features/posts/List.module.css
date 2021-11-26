@@ -42,3 +42,29 @@ h4 {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: -21px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+a {
+  color: #212121;
+  text-decoration: none;
+}
+
+.actions p,
+.actions span {
+  padding-left: 10px;
+  padding-right: 10px;
+}

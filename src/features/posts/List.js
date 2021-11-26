@@ -3,7 +3,7 @@ import css from './List.module.css';
 
 export default function List({ posts }) {
   console.log(posts);
-  const Post = ({ title, voteScore, commentCount, category, id }) => (
+  const Post = ({ title, voteScore, commentCount, category, id, author }) => (
     <li className={css.post}>
       <div className={css.data}>
         <span className={css.score}>
@@ -15,13 +15,18 @@ export default function List({ posts }) {
           <h4> {commentCount}</h4>
         </span>
       </div>
-      <div>
+      <div className={css.postInfo}>
         <h2>
           <Link to={`/${category}/${id}`}>{title}</Link>
         </h2>
-        <p>
-          Category: <Link to={`/${category}`}>{category}</Link>
-        </p>
+        <div className={css.actions}>
+          <span> 👍</span>
+          <span> 👎</span>
+          <p> Author: {author}</p>
+          <p>
+            Category: <Link to={`/${category}`}>{category}</Link>
+          </p>
+        </div>
       </div>
     </li>
   );
