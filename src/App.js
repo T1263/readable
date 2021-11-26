@@ -6,6 +6,8 @@ import { fetchCategories } from './features/categories/slice';
 import Start from './app/pages/start';
 import Footer from './features/footer/Footer';
 import Nav from './features/nav/Nav';
+import Categories from './app/pages/category';
+import Post from './app/pages/category/post';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Start />} />
+        <Route path="/:category" element={<Categories />} />
+        <Route path="/:category/:postId" element={<Post />} />
       </Routes>
       <Footer />
     </div>
