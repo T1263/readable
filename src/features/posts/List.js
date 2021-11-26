@@ -46,6 +46,7 @@ export default function List({ posts }) {
   );
   return (
     <div className={css.posts}>
+      <h2 className={css.title}>Posts</h2>
       <ul>
         {posts.map((post) => (
           <Post key={post.id} {...post} />
