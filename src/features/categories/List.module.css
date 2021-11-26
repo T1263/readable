@@ -1,7 +1,7 @@
 .filter {
   display: flex;
-  flex-direction: column;
-  margin-left: 9px;
+  flex-direction: row;
+  align-items: center;
 }
 .active {
   background: #212121 !important;
@@ -19,7 +19,7 @@
 }
 
 .title {
-  margin-left: 36px;
+  text-align: center;
 }
 
 h2 {

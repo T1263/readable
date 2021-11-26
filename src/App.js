@@ -16,13 +16,15 @@ function App() {
     dispatch(fetchCategories());
   }, [dispatch]);
   return (
-    <div className="App">
+    <div className="wrapper">
       <Nav />
-      <Routes>
-        <Route path="/" element={<Start />} />
-        <Route path="/:category" element={<Categories />} />
-        <Route path="/:category/:postId" element={<Post />} />
-      </Routes>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Start />} />
+          <Route path="/:category" element={<Categories />} />
+          <Route path="/:category/:postId" element={<Post />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

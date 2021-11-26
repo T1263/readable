@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import CategoriesList from '../../../features/categories/List';
 import PostsList from '../../../features/posts/List';
+import css from './Start.module.css';
 
 export default function Start() {
   const posts = useSelector(({ posts }) => posts.list);
@@ -26,7 +27,7 @@ export default function Start() {
     setfilteredPosts(posts);
   }, [posts]);
   return (
-    <div>
+    <div className={css.start}>
       <CategoriesList categories={categories} filterBy={filterBy} />
       <PostsList posts={filteredPosts} />
     </div>
