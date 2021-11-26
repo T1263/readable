@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchPosts } from './features/posts/slice';
 import { fetchCategories } from './features/categories/slice';
+import Start from './app/pages/start';
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -10,7 +12,8 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <h1>App</h1>
+      <h1>Logo</h1>
+      <Start />
     </div>
   );
 }
