@@ -1,9 +1,11 @@
+import { API_URL } from '../../app/shared';
+
 const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
 
 export const fetchCategories = createAsyncThunk(
   'categories/fetchAll',
   async () => {
-    const res = await fetch('http://localhost:3001/categories', {
+    const res = await fetch(API_URL + '/categories', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { API_URL } from '../../app/shared';
 
 const fetchOptions = {
   method: 'GET',
@@ -8,14 +9,14 @@ const fetchOptions = {
   },
 };
 export const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
-  const res = await fetch('http://localhost:3001/posts', fetchOptions);
+  const res = await fetch(API_URL + '/posts', fetchOptions);
 
   // Get all comments for a single Post
   const posts = await res.json();
   let comments = [];
   for (const comment of posts) {
     const postComment = await fetch(
-      `http://localhost:3001/posts/${comment.id}/comments`,
+      `${API_URL}/posts/${comment.id}/comments`,
       fetchOptions
     );
     comments.push(await postComment.json());
