@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom';
 import css from './List.module.css';
 
 export default function List({ posts }) {
-  console.log(posts);
+  const upVote = () => {
+    console.log('Up');
+  };
+  const downVote = () => {
+    console.log('Down');
+  };
   const Post = ({ title, voteScore, commentCount, category, id, author }) => (
     <li className={css.post}>
       <div className={css.data}>
@@ -20,8 +25,12 @@ export default function List({ posts }) {
           <Link to={`/${category}/${id}`}>{title}</Link>
         </h2>
         <div className={css.actions}>
-          <span> 👍</span>
-          <span> 👎</span>
+          <span className={css.voting} onClick={upVote}>
+            👍
+          </span>
+          <span className={css.voting} onClick={downVote}>
+            👎
+          </span>
           <p> Author: {author}</p>
           <p>
             Category: <Link to={`/${category}`}>{category}</Link>

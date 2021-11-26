@@ -23,7 +23,7 @@
 
 .score {
   height: 30px;
-  font-size: 9px;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +31,7 @@
 }
 .comments {
   height: 30px;
-  font-size: 9px;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +64,11 @@ a {
 }
 
 .actions p,
-.actions span {
+.actions .voting {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.voting {
+  cursor: pointer;
 }
