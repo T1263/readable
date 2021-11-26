@@ -43,12 +43,9 @@ h4 {
 .postInfo {
   display: flex;
   flex-direction: column;
-  margin-top: -21px;
 }
 .actions {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 p {
@@ -62,7 +59,6 @@ a {
 
 .actions p,
 .actions .voting {
-  padding-left: 10px;
   padding-right: 10px;
 }
 
