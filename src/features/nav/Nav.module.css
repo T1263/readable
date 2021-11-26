@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  background: #212121;
+  height: 60px;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu li {
+  list-style: none;
+  padding: 30px;
+}
+
+.menu a {
+  color: white;
+}
+
+.active a {
+  border-bottom: 3px solid white !important;
+}
