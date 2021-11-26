@@ -8,6 +8,9 @@ export default function List({ posts }) {
   const downVote = () => {
     console.log('Down');
   };
+  const edit = () => {
+    console.log('edit me');
+  };
   const Post = ({ title, voteScore, commentCount, category, id, author }) => (
     <li className={css.post}>
       <div className={css.data}>
@@ -24,6 +27,7 @@ export default function List({ posts }) {
         <h2>
           <Link to={`/${category}/${id}`}>{title}</Link>
         </h2>
+
         <div className={css.actions}>
           <span className={css.voting} onClick={upVote}>
             👍
@@ -35,6 +39,7 @@ export default function List({ posts }) {
           <p>
             Category: <Link to={`/${category}`}>{category}</Link>
           </p>
+          <button onClick={edit}>Edit</button>
         </div>
       </div>
     </li>
