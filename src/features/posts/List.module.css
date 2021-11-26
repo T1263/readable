@@ -4,3 +4,41 @@
 .posts li {
   list-style: none;
 }
+
+.post {
+  display: flex;
+  align-items: center;
+}
+.data {
+  display: flex;
+  height: 72px;
+  flex-direction: column;
+  border: 2px solid #212121;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin: 10px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.score {
+  height: 30px;
+  font-size: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.comments {
+  height: 30px;
+  font-size: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+h4 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
