@@ -1,4 +1,19 @@
-const { createSlice } = require('@reduxjs/toolkit');
+const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+
+export const fetchCategories = createAsyncThunk(
+  'categories/fetchAll',
+  async () => {
+    const res = await fetch('http://localhost:3001/categories', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'sdasass',
+      },
+    });
+
+    return res.json();
+  }
+);
 
 const initialState = {
   list: [],
@@ -8,7 +23,15 @@ const initialState = {
 const slice = createSlice({
   name: 'categories',
   initialState,
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchCategories.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+      state.loading = false;
+      state.list.push(...action.payload['categories']);
+    });
+  },
 });
 
 export default slice.reducer;
