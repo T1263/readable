@@ -5,7 +5,10 @@ import PostsList from '../../../features/posts/List';
 import css from './Start.module.css';
 
 export default function Start() {
-  const posts = useSelector(({ posts }) => posts.list);
+  const [laoding, posts] = useSelector(({ posts }) => [
+    posts.loading,
+    posts.list,
+  ]);
   const categories = useSelector(({ categories }) =>
     [
       ...categories.list,
@@ -29,7 +32,7 @@ export default function Start() {
   return (
     <div className={css.start}>
       <CategoriesList categories={categories} filterBy={filterBy} />
-      <PostsList posts={filteredPosts} />
+      {laoding ? <h3>...loading.</h3> : <PostsList posts={filteredPosts} />}
     </div>
   );
 }
