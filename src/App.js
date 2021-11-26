@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { fetchPosts } from './features/posts/slice';
 import { fetchCategories } from './features/categories/slice';
 import Start from './app/pages/start';
-import { Routes, Route } from 'react-router';
+import Footer from './features/footer/Footer';
+import Nav from './features/nav/Nav';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,10 +15,11 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <h1>Logo</h1>
+      <Nav />
       <Routes>
         <Route path="/" element={<Start />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
