@@ -1,0 +1,26 @@
+.add {
+  display: flex;
+  justify-content: center;
+}
+
+.add form {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+}
+
+.add form input,
+.add form button,
+.add form select {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.add form button {
+  cursor: pointer;
+  height: 40px;
+  background: #212121;
+  color: white;
+  border: 0;
+  padding: 3px;
+}
