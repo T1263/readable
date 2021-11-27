@@ -34,8 +34,11 @@ export const addPost = createAsyncThunk(
       method: 'POST',
       body: JSON.stringify(post),
     });
-    dispatch(create(post));
-    return res.json();
+
+    let thePost = await res.json();
+
+    dispatch(create(thePost));
+    return null;
   }
 );
 
