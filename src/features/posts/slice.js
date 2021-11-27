@@ -26,21 +26,15 @@ export const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
   return { posts, comments: comments[0] };
 });
 
-export const addPost = createAsyncThunk(
-  'posts/new',
-  async (post, { dispatch }) => {
-    const res = await fetch(API_URL + '/posts', {
-      ...fetchOptions,
-      method: 'POST',
-      body: JSON.stringify(post),
-    });
+export const addPost = createAsyncThunk('posts/new', async (post) => {
+  const res = await fetch(API_URL + '/posts', {
+    ...fetchOptions,
+    method: 'POST',
+    body: JSON.stringify(post),
+  });
 
-    let thePost = await res.json();
-
-    dispatch(create(thePost));
-    return null;
-  }
-);
+  return await res.json();
+});
 
 const initialState = {
   list: [],
@@ -56,9 +50,6 @@ export const slice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    create: (state, action) => {
-      state.list.push(action.payload);
-    },
     update: () => {},
     delete: () => {},
     addComment: () => {},
@@ -81,8 +72,9 @@ export const slice = createSlice({
     builder.addCase(addPost.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(addPost.fulfilled, (state) => {
+    builder.addCase(addPost.fulfilled, (state, action) => {
       state.loading = false;
+      state.list.push(action.payload);
     });
   },
 });
