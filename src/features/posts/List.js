@@ -6,19 +6,12 @@ import { votePost } from './slice';
 export default function List({ posts }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const upVote = (id) => {
+
+  const vote = (id, direction) => {
     dispatch(
       votePost({
         id,
-        option: 'upVote',
-      })
-    );
-  };
-  const downVote = (id) => {
-    dispatch(
-      votePost({
-        id,
-        option: 'downVote',
+        option: direction,
       })
     );
   };
@@ -41,10 +34,10 @@ export default function List({ posts }) {
         </h2>
 
         <div className={css.actions}>
-          <span className={css.voting} onClick={() => upVote(id)}>
+          <span className={css.voting} onClick={() => vote(id, 'upVote')}>
             👍
           </span>
-          <span className={css.voting} onClick={() => downVote(id)}>
+          <span className={css.voting} onClick={() => vote(id, 'downVote')}>
             👎
           </span>
           <p> Author: {author}</p>
