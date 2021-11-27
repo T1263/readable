@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { addPost } from '../../../features/posts/slice';
+import { generateUID } from '../../../utils/uid';
 
 import css from './Add.module.css';
 export default function Add() {
@@ -15,9 +17,20 @@ export default function Add() {
 
   const handleForm = (e) => {
     e.preventDefault();
-    // Todo: Dispatch then navigate
+
+    dispatch(
+      addPost({
+        id: generateUID(),
+        timestamp: new Date().getTime(),
+        title,
+        body,
+        author,
+        category,
+      })
+    );
     navigate('/');
   };
+  const disabled = () => title === '' || body === '' || author === '';
   return (
     <div className={css.add}>
       <form onSubmit={handleForm}>
@@ -50,7 +63,7 @@ export default function Add() {
           ))}
         </select>
 
-        <button> Create </button>
+        <button disabled={disabled()}> Create </button>
       </form>
     </div>
   );
