@@ -1,12 +1,25 @@
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import css from './List.module.css';
+import { votePost } from './slice';
 
 export default function List({ posts }) {
-  const upVote = () => {
-    console.log('Up');
+  const dispatch = useDispatch();
+  const upVote = (id) => {
+    dispatch(
+      votePost({
+        id,
+        option: 'upVote',
+      })
+    );
   };
-  const downVote = () => {
-    console.log('Down');
+  const downVote = (id) => {
+    dispatch(
+      votePost({
+        id,
+        option: 'downVote',
+      })
+    );
   };
   const edit = () => {
     console.log('edit me');
@@ -29,10 +42,10 @@ export default function List({ posts }) {
         </h2>
 
         <div className={css.actions}>
-          <span className={css.voting} onClick={upVote}>
+          <span className={css.voting} onClick={() => upVote(id)}>
             👍
           </span>
-          <span className={css.voting} onClick={downVote}>
+          <span className={css.voting} onClick={() => downVote(id)}>
             👎
           </span>
           <p> Author: {author}</p>

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import { API_URL } from '../../app/shared';
 
 const fetchOptions = {
@@ -35,6 +35,19 @@ export const addPost = createAsyncThunk('posts/new', async (post) => {
 
   return await res.json();
 });
+
+export const votePost = createAsyncThunk(
+  'posts/vote',
+  async ({ id, option }) => {
+    const res = await fetch(`${API_URL}/posts/${id}`, {
+      ...fetchOptions,
+      method: 'POST',
+      body: JSON.stringify({ option }),
+    });
+
+    return await res.json();
+  }
+);
 
 const initialState = {
   list: [],
@@ -75,6 +88,17 @@ export const slice = createSlice({
     builder.addCase(addPost.fulfilled, (state, action) => {
       state.loading = false;
       state.list.push(action.payload);
+    });
+
+    builder.addCase(votePost.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(votePost.fulfilled, (state, action) => {
+      state.loading = false;
+      const { id, voteScore } = action.payload;
+      const thePost = state.list.find((post) => post.id === id);
+      thePost.voteScore = voteScore;
     });
   },
 });
