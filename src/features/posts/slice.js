@@ -59,6 +59,19 @@ export const editPost = createAsyncThunk('posts/edit', async (post) => {
   return await res.json();
 });
 
+export const addPostComment = createAsyncThunk(
+  'posts/addComment',
+  async (post) => {
+    const res = await fetch(API_URL + '/comments', {
+      ...fetchOptions,
+      method: 'POST',
+      body: JSON.stringify(post),
+    });
+
+    return await res.json();
+  }
+);
+
 const initialState = {
   list: [],
   comments: [],
@@ -75,7 +88,6 @@ export const slice = createSlice({
   reducers: {
     update: () => {},
     delete: () => {},
-    addComment: () => {},
     deleteComment: () => {},
   },
   extraReducers: (builder) => {
@@ -119,6 +131,14 @@ export const slice = createSlice({
       const _post = action.payload;
       const index = state.list.findIndex((post) => post.id === _post.id);
       state.list[index] = _post;
+    });
+
+    builder.addCase(addPostComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addPostComment.fulfilled, (state, action) => {
+      state.loading = false;
+      state.comments.push(action.payload);
     });
   },
 });
