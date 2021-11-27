@@ -9,6 +9,8 @@ import Nav from './features/nav/Nav';
 import Categories from './app/pages/category';
 import Post from './app/pages/category/post';
 import Add from './app/pages/add';
+import Edit from './app/pages/edit';
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +26,7 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/:category" element={<Categories />} />
           <Route path="/:category/:postId" element={<Post />} />
+          <Route path="/:category/:postId/edit" element={<Edit />} />
         </Routes>
       </div>
       <Footer />

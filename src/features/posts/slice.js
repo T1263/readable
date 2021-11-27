@@ -49,6 +49,16 @@ export const votePost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk('posts/edit', async (post) => {
+  const res = await fetch(`${API_URL}/posts/${post.id}`, {
+    ...fetchOptions,
+    method: 'PUT',
+    body: JSON.stringify({ ...post }),
+  });
+
+  return await res.json();
+});
+
 const initialState = {
   list: [],
   comments: [],
@@ -99,6 +109,16 @@ export const slice = createSlice({
       const { id, voteScore } = action.payload;
       const thePost = state.list.find((post) => post.id === id);
       thePost.voteScore = voteScore;
+    });
+
+    builder.addCase(editPost.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(editPost.fulfilled, (state, action) => {
+      state.loading = false;
+      const _post = action.payload;
+      const index = state.list.findIndex((post) => post.id === _post.id);
+      state.list[index] = _post;
     });
   },
 });

@@ -1,10 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import css from './List.module.css';
 import { votePost } from './slice';
 
 export default function List({ posts }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const upVote = (id) => {
     dispatch(
       votePost({
@@ -21,9 +22,7 @@ export default function List({ posts }) {
       })
     );
   };
-  const edit = () => {
-    console.log('edit me');
-  };
+
   const Post = ({ title, voteScore, commentCount, category, id, author }) => (
     <li className={css.post}>
       <div className={css.data}>
@@ -52,7 +51,9 @@ export default function List({ posts }) {
           <p>
             Category: <Link to={`/${category}`}>{category}</Link>
           </p>
-          <button onClick={edit}>Edit</button>
+          <button onClick={() => navigate(`/${category}/${id}/edit`)}>
+            Edit
+          </button>
         </div>
       </div>
     </li>
