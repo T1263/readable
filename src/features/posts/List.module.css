@@ -84,3 +84,8 @@ a {
   border: 0;
   padding: 3px;
 }
+
+.delete {
+  margin-left: 10px;
+  background: red !important;
+}

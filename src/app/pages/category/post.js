@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import {
   addPostComment,
+  deletePost,
   votePost,
   votePostComment,
 } from '../../../features/posts/slice';
@@ -86,6 +87,15 @@ export default function Post() {
             }}
           >
             Edit
+          </button>
+          <button
+            className={css.delete}
+            onClick={() => {
+              dispatch(deletePost(postId));
+              navigate('/');
+            }}
+          >
+            Delete
           </button>
           <span className={css.numVote}>
             <p>
