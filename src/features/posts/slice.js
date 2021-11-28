@@ -74,13 +74,14 @@ export const editPost = createAsyncThunk('posts/edit', async (post) => {
 
 export const addPostComment = createAsyncThunk(
   'posts/addComment',
-  async (post) => {
+  async (post, { dispatch }) => {
     const res = await fetch(API_URL + '/comments', {
       ...fetchOptions,
       method: 'POST',
       body: JSON.stringify(post),
     });
 
+    dispatch(incrementCommentCount(post.parentId));
     return await res.json();
   }
 );
@@ -99,6 +100,11 @@ export const slice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    incrementCommentCount: (state, action) => {
+      const parentId = action.payload;
+      const index = state.list.findIndex((post) => post.id === parentId);
+      state.list[index].commentCount++;
+    },
     update: () => {},
     delete: () => {},
     deleteComment: () => {},
@@ -169,6 +175,6 @@ export const slice = createSlice({
   },
 });
 
-export const { create } = slice.actions;
+export const { incrementCommentCount } = slice.actions;
 
 export default slice.reducer;

@@ -89,25 +89,25 @@ export default function Post() {
           </button>
           <span className={css.numVote}>
             <p>
-              <i class="far fa-heart"></i>
+              <i className="far fa-heart"></i>
             </p>
             <p>{voteScore}</p>
           </span>
           <span className={css.numComments}>
             <p>
-              <i class="far fa-comment"></i>
+              <i className="far fa-comment"></i>
             </p>
             <p>{commentCount}</p>
           </span>
           <div className={css.vote}>
             <span className={css.voting} onClick={() => vote(postId, 'upVote')}>
-              <i class="fas fa-thumbs-up"></i>
+              <i className="fas fa-thumbs-up"></i>
             </span>
             <span
               className={css.voting}
               onClick={() => vote(postId, 'downVote')}
             >
-              <i class="fas fa-thumbs-down"></i>
+              <i className="fas fa-thumbs-down"></i>
             </span>
           </div>
         </div>
@@ -132,13 +132,13 @@ export default function Post() {
                         className={css.voting}
                         onClick={() => voteComment(comment.id, 'upVote')}
                       >
-                        <i class="fas fa-thumbs-up"></i>{' '}
+                        <i className="fas fa-thumbs-up"></i>{' '}
                       </span>
                       <span
                         className={css.voting}
                         onClick={() => voteComment(comment.id, 'downVote')}
                       >
-                        <i class="fas fa-thumbs-down"></i>
+                        <i className="fas fa-thumbs-down"></i>
                       </span>
                     </div>
                   </div>
