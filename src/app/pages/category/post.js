@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   addPostComment,
   votePost,
@@ -13,6 +13,7 @@ import css from './Post.module.css';
 export default function Post() {
   const { postId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [posts, comments] = useSelector(({ posts }) => [
     posts.list,
     posts.comments[postId],
@@ -31,7 +32,8 @@ export default function Post() {
     }
   }, [posts, postId, comments]);
 
-  const { title, body, author, timestamp, voteScore, commentCount } = thePost;
+  const { title, body, author, timestamp, voteScore, commentCount, category } =
+    thePost;
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -69,11 +71,18 @@ export default function Post() {
       <h1> {title}</h1>
       <div className={css.postMeta}>
         <div className={css.left}>
-          <p>Author: {author}</p>
-          <p>Crate: {new Date(timestamp).toLocaleString('en-US')}</p>
+          <p>Author: {author} </p>
+          <p>Created: {new Date(timestamp).toLocaleDateString('en-US')}</p>
           <hr />
         </div>
         <div className={css.audience}>
+          <button
+            onClick={() => {
+              navigate(`/${category}/${postId}/edit`);
+            }}
+          >
+            Edit
+          </button>
           <span className={css.numVote}>
             <p>Score</p>
             <p>{voteScore}</p>

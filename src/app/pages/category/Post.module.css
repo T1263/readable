@@ -32,7 +32,8 @@
   height: 100px;
 }
 
-.addComment button {
+.addComment button,
+.audience button {
   cursor: pointer;
   height: 40px;
   background: #212121;
@@ -46,7 +47,6 @@
 }
 
 .numVote {
-  /* border: 3px solid #212121; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,4 +84,9 @@
   flex-direction: column;
   align-items: center;
   margin-top: -3px;
+}
+
+.audience button {
+  height: 50px;
+  margin-right: 10px;
 }
