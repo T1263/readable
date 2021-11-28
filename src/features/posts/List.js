@@ -20,11 +20,16 @@ export default function List({ posts }) {
     <li className={css.post}>
       <div className={css.data}>
         <span className={css.score}>
-          <h4>Score</h4>
+          <h4>
+            <i class="far fa-heart"></i>
+          </h4>
           <h4> {voteScore}</h4>
         </span>
         <span className={css.comments}>
-          <h4>Comments</h4>
+          <h4>
+            {' '}
+            <i class="far fa-comment"></i>
+          </h4>
           <h4> {commentCount}</h4>
         </span>
       </div>
@@ -35,10 +40,10 @@ export default function List({ posts }) {
 
         <div className={css.actions}>
           <span className={css.voting} onClick={() => vote(id, 'upVote')}>
-            👍
+            <i class="fas fa-thumbs-up"></i>
           </span>
           <span className={css.voting} onClick={() => vote(id, 'downVote')}>
-            👎
+            <i class="fas fa-thumbs-down"></i>
           </span>
           <p> Author: {author}</p>
           <p>
