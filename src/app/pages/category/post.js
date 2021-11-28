@@ -19,10 +19,11 @@ export default function Post() {
     posts.comments[postId],
   ]);
   const [theComments, setTheComment] = useState([]);
-
   const [thePost, setThePost] = useState({ title: '' });
   const [textarea, setTextarea] = useState('');
   const [commentAuthor, setCommentAuthor] = useState('');
+
+  const MIN_TEXT_AREA = 250;
 
   useEffect(() => {
     let post = posts.filter((post) => post.id === postId);
@@ -66,6 +67,9 @@ export default function Post() {
       })
     );
   };
+
+  const disabled = () =>
+    commentAuthor === '' || textarea === '' || textarea.length < MIN_TEXT_AREA;
   return (
     <div className={css.post}>
       <h1> {title}</h1>
@@ -160,7 +164,16 @@ export default function Post() {
             onChange={({ target }) => setTextarea(target.value)}
             placeholder="What are you thoughts?"
           ></textarea>
-          <button type="submit">Add</button>
+          <div className={css.addActions}>
+            <button type="submit" disabled={disabled()}>
+              Add
+            </button>
+            {textarea.length < MIN_TEXT_AREA && (
+              <span>
+                <p>Min words: {MIN_TEXT_AREA - textarea.length}</p>
+              </span>
+            )}
+          </div>
         </form>
       </div>
     </div>

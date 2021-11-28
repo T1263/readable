@@ -97,3 +97,9 @@
   height: 50px;
   margin-right: 10px;
 }
+
+.addActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
