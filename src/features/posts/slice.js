@@ -96,12 +96,11 @@ export const deletePost = createAsyncThunk('posts/delete', async (id) => {
 });
 
 export const deletePostComment = createAsyncThunk(
-  'posts/voteComment',
-  async ({ id, option }) => {
+  'posts/deleteComment',
+  async (id) => {
     const res = await fetch(`${API_URL}/comments/${id}`, {
       ...fetchOptions,
-      method: 'POST',
-      body: JSON.stringify({ option }),
+      method: 'DELETE',
     });
 
     return await res.json();
@@ -203,6 +202,18 @@ export const slice = createSlice({
       const { id } = action.payload;
       const index = state.list.findIndex((c) => c.id === id);
       delete state.list[index];
+    });
+
+    builder.addCase(deletePostComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deletePostComment.fulfilled, (state, action) => {
+      state.loading = false;
+      const comment = action.payload;
+      const index = state.comments[comment.parentId].findIndex(
+        (c) => c.id === comment.id
+      );
+      delete state.comments[comment.parentId][index];
     });
   },
 });

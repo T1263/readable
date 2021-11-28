@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import {
   addPostComment,
   deletePost,
+  deletePostComment,
   votePost,
   votePostComment,
 } from '../../../features/posts/slice';
@@ -135,6 +136,14 @@ export default function Post() {
                   <p>
                     <i className={css.cAuthor}>{comment.author}</i> wrote:
                   </p>
+                  <button
+                    className={css.delete}
+                    onClick={() => {
+                      dispatch(deletePostComment(comment.id));
+                    }}
+                  >
+                    Delete
+                  </button>
                   <div className={css.commentScore}>
                     <p> {comment.voteScore}</p>
                     <div>

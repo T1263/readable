@@ -106,5 +106,7 @@
 
 .delete {
   margin-left: 3px;
+  border: 0;
+  color: white;
   background: red !important;
 }
