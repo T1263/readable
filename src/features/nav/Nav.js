@@ -6,7 +6,7 @@ export default function Nav() {
 
   return (
     <div className={css.nav}>
-      <h1>Logo</h1>
+      <h1>Readable</h1>
 
       <div className={css.menu}>
         <ul>
