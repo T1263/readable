@@ -23,7 +23,7 @@ export default function Post() {
   const [textarea, setTextarea] = useState('');
   const [commentAuthor, setCommentAuthor] = useState('');
 
-  const MIN_TEXT_AREA = 250;
+  const MIN_TEXT_AREA = 30;
 
   useEffect(() => {
     let post = posts.filter((post) => post.id === postId);
