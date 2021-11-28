@@ -12,6 +12,7 @@ export default function Post() {
     posts.list,
     posts.comments[postId],
   ]);
+  const [theComments, setTheComment] = useState([]);
 
   const [thePost, setThePost] = useState({ title: '' });
   const [textarea, setTextarea] = useState('');
@@ -19,8 +20,11 @@ export default function Post() {
 
   useEffect(() => {
     let post = posts.filter((post) => post.id === postId);
-    if (post.length > 0) setThePost(post[0]);
-  }, [posts, postId]);
+    if (post.length > 0) {
+      setThePost(post[0]);
+      setTheComment(comments);
+    }
+  }, [posts, postId, comments]);
 
   const { title, body, author, timestamp } = thePost;
 
@@ -55,11 +59,11 @@ export default function Post() {
       <div className={css.body}>
         <p>{body}</p>
       </div>
-      {comments.length > 0 && (
+      {theComments.length > 0 && (
         <div className={css.comments}>
           <h2>Comments</h2>
           <ul>
-            {comments.map((comment) => (
+            {theComments.map((comment) => (
               <li key={comment.id}>
                 <p>
                   <i className={css.cAuthor}>{comment.author}</i> wrote:
