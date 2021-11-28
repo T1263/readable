@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { addPostComment, votePost } from '../../../features/posts/slice';
+import {
+  addPostComment,
+  votePost,
+  votePostComment,
+} from '../../../features/posts/slice';
 import { generateUID } from '../../../utils/uid';
 
 import css from './Post.module.css';
@@ -52,6 +56,14 @@ export default function Post() {
       })
     );
   };
+  const voteComment = (id, direction) => {
+    dispatch(
+      votePostComment({
+        id,
+        option: direction,
+      })
+    );
+  };
   return (
     <div className={css.post}>
       <h1> {title}</h1>
@@ -92,9 +104,28 @@ export default function Post() {
           <ul>
             {theComments.map((comment) => (
               <li key={comment.id}>
-                <p>
-                  <i className={css.cAuthor}>{comment.author}</i> wrote:
-                </p>
+                <div className={css.commentActions}>
+                  <p>
+                    <i className={css.cAuthor}>{comment.author}</i> wrote:
+                  </p>
+                  <div className={css.commentScore}>
+                    <p> {comment.voteScore}</p>
+                    <div>
+                      <span
+                        className={css.voting}
+                        onClick={() => voteComment(comment.id, 'upVote')}
+                      >
+                        👍
+                      </span>
+                      <span
+                        className={css.voting}
+                        onClick={() => voteComment(comment.id, 'downVote')}
+                      >
+                        👎
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <p>{comment.body}</p>
                 <hr />
               </li>

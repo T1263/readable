@@ -49,6 +49,19 @@ export const votePost = createAsyncThunk(
   }
 );
 
+export const votePostComment = createAsyncThunk(
+  'posts/voteComment',
+  async ({ id, option }) => {
+    const res = await fetch(`${API_URL}/comments/${id}`, {
+      ...fetchOptions,
+      method: 'POST',
+      body: JSON.stringify({ option }),
+    });
+
+    return await res.json();
+  }
+);
+
 export const editPost = createAsyncThunk('posts/edit', async (post) => {
   const res = await fetch(`${API_URL}/posts/${post.id}`, {
     ...fetchOptions,
@@ -140,6 +153,18 @@ export const slice = createSlice({
       state.loading = false;
       const comment = action.payload;
       state.comments[comment.parentId].push(comment);
+    });
+
+    builder.addCase(votePostComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(votePostComment.fulfilled, (state, action) => {
+      state.loading = false;
+      const comment = action.payload;
+      const index = state.comments[comment.parentId].findIndex(
+        (c) => c.id === comment.id
+      );
+      state.comments[comment.parentId][index] = comment;
     });
   },
 });

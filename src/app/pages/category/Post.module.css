@@ -69,6 +69,19 @@
   padding-left: 30px;
 }
 
-.vote span {
+.vote span,
+.commentScore span {
   cursor: pointer;
+}
+
+.commentActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentScore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -3px;
 }
