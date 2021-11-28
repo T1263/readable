@@ -10,7 +10,7 @@ export default function Post() {
   const dispatch = useDispatch();
   const [posts, comments] = useSelector(({ posts }) => [
     posts.list,
-    posts.comments.filter((comment) => comment.parentId === postId),
+    posts.comments[postId],
   ]);
 
   const [thePost, setThePost] = useState({ title: '' });

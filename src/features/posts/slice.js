@@ -13,17 +13,17 @@ export const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
 
   // Get all comments for a single Post
   const posts = await res.json();
-  let comments = [];
-  for (const comment of posts) {
+  let comments = {};
+  for (const post of posts) {
     const postComment = await fetch(
-      `${API_URL}/posts/${comment.id}/comments`,
+      `${API_URL}/posts/${post.id}/comments`,
       fetchOptions
     );
-    comments.push(await postComment.json());
+    comments[post.id] = await postComment.json();
   }
 
   // Return Post with comments
-  return { posts, comments: comments[0] };
+  return { posts, comments };
 });
 
 export const addPost = createAsyncThunk('posts/new', async (post) => {
@@ -74,7 +74,7 @@ export const addPostComment = createAsyncThunk(
 
 const initialState = {
   list: [],
-  comments: [],
+  comments: {},
   loading: false,
   error: {
     name: '',
@@ -100,7 +100,7 @@ export const slice = createSlice({
     });
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.list.push(...action.payload.posts);
-      state.comments.push(...action.payload.comments);
+      state.comments = action.payload.comments;
       state.loading = false;
     });
 
@@ -138,7 +138,8 @@ export const slice = createSlice({
     });
     builder.addCase(addPostComment.fulfilled, (state, action) => {
       state.loading = false;
-      state.comments.push(action.payload);
+      const comment = action.payload;
+      state.comments[comment.parentId].push(comment);
     });
   },
 });
