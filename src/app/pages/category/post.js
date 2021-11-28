@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { addPostComment } from '../../../features/posts/slice';
+import { addPostComment, votePost } from '../../../features/posts/slice';
 import { generateUID } from '../../../utils/uid';
+
 import css from './Post.module.css';
 export default function Post() {
   const { postId } = useParams();
@@ -26,7 +27,7 @@ export default function Post() {
     }
   }, [posts, postId, comments]);
 
-  const { title, body, author, timestamp } = thePost;
+  const { title, body, author, timestamp, voteScore, commentCount } = thePost;
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -43,6 +44,14 @@ export default function Post() {
     setTextarea('');
     setCommentAuthor('');
   };
+  const vote = (id, direction) => {
+    dispatch(
+      votePost({
+        id,
+        option: direction,
+      })
+    );
+  };
   return (
     <div className={css.post}>
       <h1> {title}</h1>
@@ -52,8 +61,26 @@ export default function Post() {
           <p>Crate: {new Date(timestamp).toLocaleString('en-US')}</p>
           <hr />
         </div>
-        <div className={css.right}>
-          <p>icons</p>
+        <div className={css.audience}>
+          <span className={css.numVote}>
+            <p>Score</p>
+            <p>{voteScore}</p>
+          </span>
+          <span className={css.numComments}>
+            <p>Comments</p>
+            <p>{commentCount}</p>
+          </span>
+          <div className={css.vote}>
+            <span className={css.voting} onClick={() => vote(postId, 'upVote')}>
+              👍
+            </span>
+            <span
+              className={css.voting}
+              onClick={() => vote(postId, 'downVote')}
+            >
+              👎
+            </span>
+          </div>
         </div>
       </div>
       <div className={css.body}>
