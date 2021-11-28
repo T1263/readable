@@ -19,8 +19,8 @@ function App() {
   }, [dispatch]);
   return (
     <div className="wrapper">
+      <Nav />
       <div className="container">
-        <Nav />
         <Routes>
           <Route path="/" element={<Start />} />
           <Route path="/add" element={<Add />} />
