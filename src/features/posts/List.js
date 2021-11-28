@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import css from './List.module.css';
-import { votePost } from './slice';
+import { deletePost, votePost } from './slice';
 
 export default function List({ posts }) {
   const dispatch = useDispatch();
@@ -51,6 +51,14 @@ export default function List({ posts }) {
           </p>
           <button onClick={() => navigate(`/${category}/${id}/edit`)}>
             Edit
+          </button>
+          <button
+            className={css.delete}
+            onClick={() => {
+              dispatch(deletePost(id));
+            }}
+          >
+            Delete
           </button>
         </div>
       </div>
