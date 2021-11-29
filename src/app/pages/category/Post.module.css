@@ -110,3 +110,7 @@
   color: white;
   background: red !important;
 }
+
+.buttons {
+  display: flex;
+}

@@ -85,7 +85,7 @@ export default function Post() {
               navigate(`/${category}/${postId}/edit`);
             }}
           >
-            Edit
+            <i className="fas fa-edit"></i>
           </button>
           <button
             className={css.delete}
@@ -94,7 +94,7 @@ export default function Post() {
               navigate('/');
             }}
           >
-            Delete
+            <i className="fas fa-trash-alt"></i>
           </button>
           <span className={css.numVote}>
             <p>
@@ -134,30 +134,33 @@ export default function Post() {
                   <p>
                     <i className={css.cAuthor}>{comment.author}</i> wrote:
                   </p>
-                  <button
-                    className={css.delete}
-                    onClick={() => {
-                      dispatch(deletePostComment(comment.id));
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <div className={css.commentScore}>
-                    <p> {comment.voteScore}</p>
-                    <div>
-                      <span
-                        className={css.voting}
-                        onClick={() => voteComment(comment.id, 'upVote')}
-                      >
-                        <i className="fas fa-thumbs-up"></i>{' '}
-                      </span>
-                      <span
-                        className={css.voting}
-                        onClick={() => voteComment(comment.id, 'downVote')}
-                      >
-                        <i className="fas fa-thumbs-down"></i>
-                      </span>
+
+                  <div className={css.buttons}>
+                    <div className={css.commentScore}>
+                      <p> {comment.voteScore}</p>
+                      <div>
+                        <span
+                          className={css.voting}
+                          onClick={() => voteComment(comment.id, 'upVote')}
+                        >
+                          <i className="fas fa-thumbs-up"></i>{' '}
+                        </span>
+                        <span
+                          className={css.voting}
+                          onClick={() => voteComment(comment.id, 'downVote')}
+                        >
+                          <i className="fas fa-thumbs-down"></i>
+                        </span>
+                      </div>
                     </div>
+                    <button
+                      className={css.delete}
+                      onClick={() => {
+                        dispatch(deletePostComment(comment.id));
+                      }}
+                    >
+                      <i className="fas fa-trash-alt"></i>
+                    </button>
                   </div>
                 </div>
                 <p>{comment.body}</p>

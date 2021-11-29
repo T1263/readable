@@ -51,7 +51,7 @@ export default function List({ posts }) {
             Category: <Link to={`/${category}`}>{category}</Link>
           </p>
           <button onClick={() => navigate(`/${category}/${id}/edit`)}>
-            Edit
+            <i className="fas fa-edit"></i>
           </button>
           <button
             className={css.delete}
@@ -59,7 +59,7 @@ export default function List({ posts }) {
               dispatch(deletePost(id));
             }}
           >
-            Delete
+            <i className="fas fa-trash-alt"></i>
           </button>
         </div>
       </div>
