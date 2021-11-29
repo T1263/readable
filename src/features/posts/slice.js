@@ -144,6 +144,8 @@ export const slice = createSlice({
       state.comments[comment.parentId] = state.comments[comment.parentId]
         .filter((c) => c.id !== comment.id)
         .concat([comment]);
+
+      state.loading = false;
     });
   },
 });
