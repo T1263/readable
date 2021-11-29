@@ -24,11 +24,13 @@ export const slice = createSlice({
   reducers: {
     incrementCommentCount: (state, action) => {
       const { parentId } = action.payload;
+      // TODO: Replace findIndex
       const index = state.list.findIndex((post) => post.id === parentId);
       state.list[index].commentCount++;
     },
     decrementCommentCount: (state, action) => {
       const { parentId } = action.payload;
+      // TODO: Replace findIndex
       const index = state.list.findIndex((post) => post.id === parentId);
       state.list[index].commentCount--;
     },
@@ -54,8 +56,11 @@ export const slice = createSlice({
       state.loading = true;
     });
     builder.addCase(addPost.fulfilled, (state, action) => {
+      const { id } = action.payload;
       state.loading = false;
       state.list.push(action.payload);
+      // Create empty comments list for the post
+      state.comments[id] = [];
     });
 
     builder.addCase(votePost.pending, (state) => {
@@ -75,6 +80,7 @@ export const slice = createSlice({
     builder.addCase(editPost.fulfilled, (state, action) => {
       state.loading = false;
       const _post = action.payload;
+      // TODO: Replace findIndex
       const index = state.list.findIndex((post) => post.id === _post.id);
       state.list[index] = _post;
     });
@@ -96,6 +102,8 @@ export const slice = createSlice({
     builder.addCase(votePostComment.fulfilled, (state, action) => {
       state.loading = false;
       const comment = action.payload;
+
+      // TODO: Replace findIndex
       const index = state.comments[comment.parentId].findIndex(
         (c) => c.id === comment.id
       );
