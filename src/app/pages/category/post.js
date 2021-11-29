@@ -26,12 +26,16 @@ export default function Post() {
   const MIN_TEXT_AREA = 30;
 
   useEffect(() => {
-    let post = posts.filter((post) => post.id === postId);
-    if (post.length > 0) {
-      setThePost(post[0]);
-      setTheComment(comments);
+    if (posts.length > 0) {
+      let post = posts.find((post) => post.id === postId);
+      if (post) {
+        setThePost(post);
+        setTheComment(comments);
+      } else {
+        navigate('/its/not/found');
+      }
     }
-  }, [posts, postId, comments]);
+  }, [posts, postId, comments, navigate]);
 
   const { title, body, author, timestamp, voteScore, commentCount, category } =
     thePost;

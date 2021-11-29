@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Start from './app/pages/start';
 import Footer from './features/footer/Footer';
@@ -10,6 +10,7 @@ import Add from './app/pages/add';
 import Edit from './app/pages/edit';
 import fetchPosts from './features/posts/thunks/fetchPosts';
 import fetchCategories from './features/categories/thunks/fetchCategories';
+import NotFound from './app/pages/notFound/NotFound';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
       <Nav />
       <div className="container">
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Start />} />
           <Route path="/add" element={<Add />} />
           <Route path="/:category" element={<Categories />} />
