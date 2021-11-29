@@ -40,6 +40,7 @@
 }
 
 .addComment button,
+.comments form button,
 .audience button {
   cursor: pointer;
   height: 40px;
@@ -113,4 +114,9 @@
 
 .buttons {
   display: flex;
+}
+
+.comments textarea {
+  margin-top: 10px;
+  width: 100%;
 }

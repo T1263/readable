@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import addPostComment from '../../../features/posts/thunks/addPostComment';
 import deletePost from '../../../features/posts/thunks/deletePost';
 import deletePostComment from '../../../features/posts/thunks/deletePostComment';
+import editPostComment from '../../../features/posts/thunks/editPostComment';
 import votePost from '../../../features/posts/thunks/votePost';
 import votePostComment from '../../../features/posts/thunks/votePostComment';
 import { generateUID } from '../../../utils/uid';
@@ -22,6 +23,7 @@ export default function Post() {
   const [thePost, setThePost] = useState({ title: '' });
   const [textarea, setTextarea] = useState('');
   const [commentAuthor, setCommentAuthor] = useState('');
+  const [activeEditComment, setActiveEditComment] = useState(null);
 
   const MIN_TEXT_AREA = 30;
 
@@ -74,6 +76,21 @@ export default function Post() {
 
   const disabled = () =>
     commentAuthor === '' || textarea === '' || textarea.length < MIN_TEXT_AREA;
+
+  const handleEditComment = (e, id) => {
+    e.preventDefault();
+    let body = e.target[id].value;
+    // TODO: Dispatch edit comment and update the dom
+    dispatch(
+      editPostComment({
+        id,
+        timestamp: new Date().getTime(),
+        body,
+      })
+    );
+
+    setActiveEditComment(null);
+  };
   return (
     <div className={css.post}>
       <h1> {title}</h1>
@@ -158,6 +175,14 @@ export default function Post() {
                       </div>
                     </div>
                     <button
+                      className={css.edit}
+                      onClick={() => {
+                        setActiveEditComment(comment.id);
+                      }}
+                    >
+                      <i className="fas fa-edit"></i>
+                    </button>
+                    <button
                       className={css.delete}
                       onClick={() => {
                         dispatch(deletePostComment(comment.id));
@@ -167,7 +192,17 @@ export default function Post() {
                     </button>
                   </div>
                 </div>
-                <p>{comment.body}</p>
+                {activeEditComment === comment.id ? (
+                  <form onSubmit={(e) => handleEditComment(e, comment.id)}>
+                    <textarea
+                      name={comment.id}
+                      defaultValue={comment.body}
+                    ></textarea>
+                    <button type="submit">Update</button>
+                  </form>
+                ) : (
+                  <p>{comment.body}</p>
+                )}
                 <hr />
               </li>
             ))}

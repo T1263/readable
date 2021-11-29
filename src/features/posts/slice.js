@@ -4,6 +4,7 @@ import addPostComment from './thunks/addPostComment';
 import deletePost from './thunks/deletePost';
 import deletePostComment from './thunks/deletePostComment';
 import editPost from './thunks/editPost';
+import editPostComment from './thunks/editPostComment';
 import fetchPosts from './thunks/fetchPosts';
 import votePost from './thunks/votePost';
 import votePostComment from './thunks/votePostComment';
@@ -133,6 +134,16 @@ export const slice = createSlice({
 
       // Decrement comment Count
       slice.caseReducers.decrementCommentCount(state, action);
+    });
+
+    builder.addCase(editPostComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(editPostComment.fulfilled, (state, action) => {
+      const comment = action.payload;
+      state.comments[comment.parentId] = state.comments[comment.parentId]
+        .filter((c) => c.id !== comment.id)
+        .concat([comment]);
     });
   },
 });
