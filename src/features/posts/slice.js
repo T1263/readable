@@ -22,6 +22,10 @@ export const slice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    createCommentsList: (state, action) => {
+      const { id } = action.payload;
+      state.comments[id] = [];
+    },
     incrementCommentCount: (state, action) => {
       const { parentId } = action.payload;
       // TODO: Replace findIndex
@@ -56,11 +60,10 @@ export const slice = createSlice({
       state.loading = true;
     });
     builder.addCase(addPost.fulfilled, (state, action) => {
-      const { id } = action.payload;
       state.loading = false;
       state.list.push(action.payload);
       // Create empty comments list for the post
-      state.comments[id] = [];
+      slice.caseReducers.createCommentsList(state, action);
     });
 
     builder.addCase(votePost.pending, (state) => {
