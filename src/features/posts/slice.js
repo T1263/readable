@@ -81,9 +81,10 @@ export const slice = createSlice({
     builder.addCase(editPost.fulfilled, (state, action) => {
       state.loading = false;
       const _post = action.payload;
-      // TODO: Replace findIndex
-      const index = state.list.findIndex((post) => post.id === _post.id);
-      state.list[index] = _post;
+
+      state.list = state.list
+        .filter((post) => post.id !== _post.id)
+        .concat([_post]);
     });
 
     builder.addCase(addPostComment.pending, (state) => {
@@ -102,13 +103,12 @@ export const slice = createSlice({
     });
     builder.addCase(votePostComment.fulfilled, (state, action) => {
       state.loading = false;
-      const comment = action.payload;
+      const { parentId, voteScore, id } = action.payload;
 
-      // TODO: Replace findIndex
-      const index = state.comments[comment.parentId].findIndex(
-        (c) => c.id === comment.id
+      const theComment = state.comments[parentId].find(
+        (comment) => comment.id === id
       );
-      state.comments[comment.parentId][index] = comment;
+      theComment.voteScore = voteScore;
     });
 
     builder.addCase(deletePost.pending, (state) => {
@@ -117,8 +117,7 @@ export const slice = createSlice({
     builder.addCase(deletePost.fulfilled, (state, action) => {
       state.loading = false;
       const { id } = action.payload;
-      const index = state.list.findIndex((c) => c.id === id);
-      delete state.list[index];
+      state.list = state.list.filter((post) => post.id !== id);
     });
 
     builder.addCase(deletePostComment.pending, (state) => {
@@ -126,11 +125,11 @@ export const slice = createSlice({
     });
     builder.addCase(deletePostComment.fulfilled, (state, action) => {
       state.loading = false;
-      const comment = action.payload;
-      const index = state.comments[comment.parentId].findIndex(
-        (c) => c.id === comment.id
+      const { parentId, id } = action.payload;
+
+      state.comments[parentId] = state.comments[parentId].filter(
+        (comment) => comment.id !== id
       );
-      delete state.comments[comment.parentId][index];
 
       // Decrement comment Count
       slice.caseReducers.decrementCommentCount(state, action);
