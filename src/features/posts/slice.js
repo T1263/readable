@@ -28,15 +28,13 @@ export const slice = createSlice({
     },
     incrementCommentCount: (state, action) => {
       const { parentId } = action.payload;
-      // TODO: Replace findIndex
-      const index = state.list.findIndex((post) => post.id === parentId);
-      state.list[index].commentCount++;
+      const thePost = state.list.find((post) => post.id === parentId);
+      thePost.commentCount++;
     },
     decrementCommentCount: (state, action) => {
       const { parentId } = action.payload;
-      // TODO: Replace findIndex
-      const index = state.list.findIndex((post) => post.id === parentId);
-      state.list[index].commentCount--;
+      const thePost = state.list.find((post) => post.id === parentId);
+      thePost.commentCount--;
     },
     update: () => {},
     delete: () => {},
