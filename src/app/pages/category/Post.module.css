@@ -41,6 +41,7 @@
 
 .addComment button,
 .comments form button,
+.edit,
 .audience button {
   cursor: pointer;
   height: 40px;
@@ -111,6 +112,7 @@
   border: 0;
   color: white;
   background: red !important;
+  cursor: pointer;
 }
 
 .buttons {
