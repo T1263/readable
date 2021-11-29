@@ -98,6 +98,7 @@ export default function Post() {
         <div className={css.left}>
           <p>Author: {author} </p>
           <p>Created: {new Date(timestamp).toLocaleDateString('en-US')}</p>
+          <p>Category: {category}</p>
           <hr />
         </div>
         <div className={css.audience}>
