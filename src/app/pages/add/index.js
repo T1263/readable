@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { addPost } from '../../../features/posts/slice';
+import addPost from '../../../features/posts/thunks/addPost';
+
 import { generateUID } from '../../../utils/uid';
 
 import css from './Add.module.css';

@@ -1,22 +1,5 @@
-import { API_URL } from '../../app/shared';
-
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
-
-export const fetchCategories = createAsyncThunk(
-  'categories/fetchAll',
-  async () => {
-    const res = await fetch(API_URL + '/categories', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'sdasass',
-      },
-    });
-
-    return res.json();
-  }
-);
-
+import fetchCategories from './thunks/fetchCategories';
+const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   list: [],
   loading: false,

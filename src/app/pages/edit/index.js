@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { editPost } from '../../../features/posts/slice';
+import editPost from '../../../features/posts/thunks/editPost';
 
 import css from './Edit.module.css';
 

@@ -1,111 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { API_URL } from '../../app/shared';
-
-const fetchOptions = {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'sdasass',
-  },
-};
-export const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
-  const res = await fetch(API_URL + '/posts', fetchOptions);
-
-  // Get all comments for a single Post
-  const posts = await res.json();
-  let comments = {};
-  for (const post of posts) {
-    const postComment = await fetch(
-      `${API_URL}/posts/${post.id}/comments`,
-      fetchOptions
-    );
-    comments[post.id] = await postComment.json();
-  }
-
-  // Return Post with comments
-  return { posts, comments };
-});
-
-export const addPost = createAsyncThunk('posts/new', async (post) => {
-  const res = await fetch(API_URL + '/posts', {
-    ...fetchOptions,
-    method: 'POST',
-    body: JSON.stringify(post),
-  });
-
-  return await res.json();
-});
-
-export const votePost = createAsyncThunk(
-  'posts/vote',
-  async ({ id, option }) => {
-    const res = await fetch(`${API_URL}/posts/${id}`, {
-      ...fetchOptions,
-      method: 'POST',
-      body: JSON.stringify({ option }),
-    });
-
-    return await res.json();
-  }
-);
-
-export const votePostComment = createAsyncThunk(
-  'posts/voteComment',
-  async ({ id, option }) => {
-    const res = await fetch(`${API_URL}/comments/${id}`, {
-      ...fetchOptions,
-      method: 'POST',
-      body: JSON.stringify({ option }),
-    });
-
-    return await res.json();
-  }
-);
-
-export const editPost = createAsyncThunk('posts/edit', async (post) => {
-  const res = await fetch(`${API_URL}/posts/${post.id}`, {
-    ...fetchOptions,
-    method: 'PUT',
-    body: JSON.stringify({ ...post }),
-  });
-
-  return await res.json();
-});
-
-export const addPostComment = createAsyncThunk(
-  'posts/addComment',
-  async (post, { dispatch }) => {
-    const res = await fetch(API_URL + '/comments', {
-      ...fetchOptions,
-      method: 'POST',
-      body: JSON.stringify(post),
-    });
-
-    dispatch(incrementCommentCount(post.parentId));
-    return await res.json();
-  }
-);
-
-export const deletePost = createAsyncThunk('posts/delete', async (id) => {
-  const res = await fetch(`${API_URL}/posts/${id}`, {
-    ...fetchOptions,
-    method: 'DELETE',
-  });
-
-  return await res.json();
-});
-
-export const deletePostComment = createAsyncThunk(
-  'posts/deleteComment',
-  async (id) => {
-    const res = await fetch(`${API_URL}/comments/${id}`, {
-      ...fetchOptions,
-      method: 'DELETE',
-    });
-
-    return await res.json();
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+import addPost from './thunks/addPost';
+import addPostComment from './thunks/addPostComment';
+import deletePost from './thunks/deletePost';
+import deletePostComment from './thunks/deletePostComment';
+import editPost from './thunks/editPost';
+import fetchPosts from './thunks/fetchPosts';
+import votePost from './thunks/votePost';
+import votePostComment from './thunks/votePostComment';
 
 const initialState = {
   list: [],
@@ -122,9 +23,14 @@ export const slice = createSlice({
   initialState,
   reducers: {
     incrementCommentCount: (state, action) => {
-      const parentId = action.payload;
+      const { parentId } = action.payload;
       const index = state.list.findIndex((post) => post.id === parentId);
       state.list[index].commentCount++;
+    },
+    decrementCommentCount: (state, action) => {
+      const { parentId } = action.payload;
+      const index = state.list.findIndex((post) => post.id === parentId);
+      state.list[index].commentCount--;
     },
     update: () => {},
     delete: () => {},
@@ -180,6 +86,8 @@ export const slice = createSlice({
       state.loading = false;
       const comment = action.payload;
       state.comments[comment.parentId].push(comment);
+      // Call our incrementCommentCount reducer
+      slice.caseReducers.incrementCommentCount(state, action);
     });
 
     builder.addCase(votePostComment.pending, (state) => {
@@ -214,10 +122,11 @@ export const slice = createSlice({
         (c) => c.id === comment.id
       );
       delete state.comments[comment.parentId][index];
+
+      // Decrement comment Count
+      slice.caseReducers.decrementCommentCount(state, action);
     });
   },
 });
-
-export const { incrementCommentCount } = slice.actions;
 
 export default slice.reducer;

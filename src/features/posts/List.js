@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import css from './List.module.css';
-import { deletePost, votePost } from './slice';
+import deletePost from './thunks/deletePost';
+import votePost from './thunks/votePost';
 
 export default function List({ posts }) {
   const dispatch = useDispatch();

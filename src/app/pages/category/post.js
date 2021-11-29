@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import {
-  addPostComment,
-  deletePost,
-  deletePostComment,
-  votePost,
-  votePostComment,
-} from '../../../features/posts/slice';
+import addPostComment from '../../../features/posts/thunks/addPostComment';
+import deletePost from '../../../features/posts/thunks/deletePost';
+import deletePostComment from '../../../features/posts/thunks/deletePostComment';
+import votePost from '../../../features/posts/thunks/votePost';
+import votePostComment from '../../../features/posts/thunks/votePostComment';
 import { generateUID } from '../../../utils/uid';
 
 import css from './Post.module.css';
