@@ -1,16 +1,11 @@
-import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import css from './List.module.css';
 export default function List({ categories }) {
-  const [active, setActive] = useState('all');
-  const Category = ({ name }) => {
+  const { pathname } = useLocation();
+  const Category = ({ name, path }) => {
     return (
-      <li
-        className={active === name ? css.active : ''}
-        onClick={() => {
-          setActive(name);
-        }}
-      >
-        {name}
+      <li className={pathname.includes(name) ? css.active : ''}>
+        <Link to={`/${path}`}>{name}</Link>
       </li>
     );
   };

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import PostsList from '../../../features/posts/List';
+import PostsWrapper from '../../../features/PostsWrapper';
 export default function Categories() {
   const { category } = useParams();
-  const posts = useSelector(({ posts }) => posts.list);
+  const [posts, categories] = useSelector(({ posts, categories }) => [
+    posts.list,
+    categories.list,
+  ]);
   const [thePosts, setThePosts] = useState([]);
   const navigate = useNavigate();
 
@@ -18,5 +21,5 @@ export default function Categories() {
       }
     }
   }, [posts, category, navigate]);
-  return <PostsList posts={thePosts} />;
+  return <PostsWrapper posts={thePosts} categories={categories} />;
 }
