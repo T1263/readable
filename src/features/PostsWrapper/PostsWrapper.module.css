@@ -1,3 +1,14 @@
-.wrapper {
+.wrapper,
+.lists {
   display: flex;
+}
+.wrapper {
+  flex-direction: column;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
