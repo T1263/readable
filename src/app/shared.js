@@ -4,6 +4,6 @@ export const fetchOptions = {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'sdasass',
+    Authorization: 'abetterword',
   },
 };
