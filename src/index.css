@@ -13,7 +13,7 @@ code {
 }
 
 .container {
-  width: 900px;
+  width: 639px;
 }
 
 .wrapper {
@@ -22,11 +22,4 @@ code {
   align-items: center;
   justify-items: center;
   flex-direction: column;
-}
-
-/* For testing */
-@media only screen and (min-width: 300px) {
-  .container {
-    width: auto;
-  }
 }
