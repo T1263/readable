@@ -37,7 +37,7 @@ export default function PostsWrapper({ posts, categories }) {
       </div>
       <div className={css.lists}>
         <CategoriesList categories={categories} />
-        <PostsList posts={filteredPosts} />
+        <PostsList posts={[...filteredPosts].reverse()} />
       </div>
     </div>
   );
