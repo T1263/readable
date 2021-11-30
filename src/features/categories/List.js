@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import css from './List.module.css';
-export default function List({ categories, filterBy }) {
+export default function List({ categories }) {
   const [active, setActive] = useState('all');
   const Category = ({ name }) => {
     return (
@@ -8,7 +8,6 @@ export default function List({ categories, filterBy }) {
         className={active === name ? css.active : ''}
         onClick={() => {
           setActive(name);
-          filterBy(name);
         }}
       >
         {name}
@@ -16,8 +15,8 @@ export default function List({ categories, filterBy }) {
     );
   };
   return (
-    <div className={css.filter}>
-      <h2 className={css.title}>Filter</h2>
+    <div className={css.categories}>
+      <h2 className={css.title}>Categories</h2>
       <ul className={css.list}>
         {categories.map((category) => (
           <Category key={category.path} {...category} />

@@ -20,8 +20,8 @@ function App() {
   }, [dispatch]);
   return (
     <div className="wrapper">
-      <Nav />
       <div className="container">
+        <Nav />
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Start />} />

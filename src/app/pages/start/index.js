@@ -1,37 +1,13 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import CategoriesList from '../../../features/categories/List';
-import PostsList from '../../../features/posts/List';
+
+import PostsWrapper from '../../../features/PostsWrapper';
 
 export default function Start() {
-  const [laoding, posts] = useSelector(({ posts }) => [
-    posts.loading,
+  const [posts, categories] = useSelector(({ posts, categories }) => [
     posts.list,
+    categories.list,
   ]);
-  const categories = useSelector(({ categories }) =>
-    [
-      ...categories.list,
-      // Append To select all
-      { name: 'all', path: 'all' },
-    ].reverse()
-  );
-  const [filteredPosts, setfilteredPosts] = useState([]);
-  const filterBy = (category) => {
-    if (category === 'all') {
-      setfilteredPosts(posts);
-      return;
-    }
-    const filtered = posts.filter((post) => post.category === category);
-    setfilteredPosts(filtered);
-  };
 
-  useEffect(() => {
-    setfilteredPosts(posts);
-  }, [posts]);
-  return (
-    <div>
-      <CategoriesList categories={categories} filterBy={filterBy} />
-      {laoding ? <h3>...loading.</h3> : <PostsList posts={filteredPosts} />}
-    </div>
-  );
+  return <PostsWrapper categories={categories} posts={posts} />;
 }
