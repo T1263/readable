@@ -14,12 +14,14 @@ export default function Categories() {
   useEffect(() => {
     if (posts.length > 0) {
       const filteredPost = posts.filter((post) => post.category === category);
-      if (filteredPost.length > 0) {
+      const filteredCat = categories.find((cat) => cat.name === category);
+
+      if (filteredPost.length > 0 || filteredCat) {
         setThePosts(filteredPost);
       } else {
         navigate('/its/not/found');
       }
     }
-  }, [posts, category, navigate]);
+  }, [posts, category, navigate, categories]);
   return <PostsWrapper posts={thePosts} categories={categories} />;
 }

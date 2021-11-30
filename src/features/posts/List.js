@@ -68,7 +68,15 @@ export default function List({ posts }) {
   return (
     <div className={css.posts}>
       <h2>Posts</h2>
-      <ul>{posts.map((post) => <Post key={post.id} {...post} />).reverse()}</ul>
+      {posts.length > 0 ? (
+        <ul>
+          {posts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
+        </ul>
+      ) : (
+        <p>No Posts</p>
+      )}
     </div>
   );
 }
